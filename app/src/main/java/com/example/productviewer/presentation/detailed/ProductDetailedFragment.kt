@@ -19,12 +19,15 @@ class ProductDetailedFragment : BaseFragment<FragmentProductDetailedBinding>() {
     private val args by navArgs<ProductDetailedFragmentArgs>()
 
     private val viewModel: ProductDetailedViewModel by lazy {
-        val factory =
-            ProductDetailedViewModel.Factory(
-                args.productId,
-                (requireActivity().application as MainApplication).appComponent.getProductUseCase()
-            )
-        ViewModelProvider(this, factory)[ProductDetailedViewModel::class.java]
+        (requireActivity().application as MainApplication).appComponent.let { appComponent ->
+            val factory =
+                ProductDetailedViewModel.Factory(
+                    args.productId,
+                    appComponent.getProductUseCase(),
+                    appComponent.getFavoriteProductsRepository()
+                )
+            ViewModelProvider(this, factory)[ProductDetailedViewModel::class.java]
+        }
     }
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentProductDetailedBinding
@@ -41,11 +44,17 @@ class ProductDetailedFragment : BaseFragment<FragmentProductDetailedBinding>() {
         binding.btnBack.setOnClickListener {
             findNavController().popBackStack()
         }
+        binding.cbFavorite.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.switchFavorite(isChecked)
+        }
     }
 
     private fun observeState() {
         viewModel.product.observe(viewLifecycleOwner) {
             setupProductInfo(it)
+        }
+        viewModel.isFavorite.observe(viewLifecycleOwner) {
+            binding.cbFavorite.isChecked = it
         }
     }
 

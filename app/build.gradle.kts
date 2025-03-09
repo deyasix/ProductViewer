@@ -67,4 +67,8 @@ dependencies {
 
     implementation(libs.glide)
     ksp(libs.glide.compiler)
+
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
 }

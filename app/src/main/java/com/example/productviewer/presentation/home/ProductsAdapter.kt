@@ -2,12 +2,12 @@ package com.example.productviewer.presentation.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.productviewer.databinding.ItemProductBinding
 import com.example.productviewer.domain.entity.Product
+import com.example.productviewer.presentation.common.ProductDiffUtilCallback
 
 class ProductsAdapter(private val onImageClick: (Long) -> Unit) :
     ListAdapter<Product, ProductsAdapter.ProductViewHolder>(ProductDiffUtilCallback) {
@@ -34,17 +34,5 @@ class ProductsAdapter(private val onImageClick: (Long) -> Unit) :
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         holder.bind(currentList[position])
-    }
-
-    companion object {
-        private object ProductDiffUtilCallback : DiffUtil.ItemCallback<Product>() {
-            override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {
-                return oldItem.id == newItem.id
-            }
-
-            override fun areContentsTheSame(oldItem: Product, newItem: Product): Boolean {
-                return oldItem == newItem
-            }
-        }
     }
 }

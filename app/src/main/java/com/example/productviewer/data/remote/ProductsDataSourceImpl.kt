@@ -1,6 +1,5 @@
-package com.example.productviewer.data
+package com.example.productviewer.data.remote
 
-import com.example.productviewer.data.remote.ProductsService
 import com.example.productviewer.domain.ProductsDataSource
 import com.example.productviewer.domain.entity.Product
 

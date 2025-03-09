@@ -26,6 +26,16 @@
         app:layout_constraintTop_toBottomOf="@id/btn_back"
         tools:ignore="ContentDescription" />
 
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/cb_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/cb_favorite"
+        android:backgroundTint="@android:color/holo_red_light"
+        android:button="@null"
+        app:layout_constraintEnd_toEndOf="@id/iv_image"
+        app:layout_constraintTop_toTopOf="@id/iv_image" />
+
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="match_parent"

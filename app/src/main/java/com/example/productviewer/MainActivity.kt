@@ -21,5 +21,11 @@ class MainActivity : AppCompatActivity() {
         val navController =
             (supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment).navController
         navController.setGraph(R.navigation.main_navigation)
+        binding.navView.setOnItemSelectedListener {
+            if (!navController.popBackStack(it.itemId, false)) {
+                navController.navigate(it.itemId)
+            }
+            true
+        }
     }
 }

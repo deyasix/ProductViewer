@@ -26,4 +26,14 @@
             app:nullable="false" />
     </fragment>
 
+    <fragment
+        android:id="@+id/favoriteProductsFragment"
+        android:name="com.example.productviewer.presentation.favorites.FavoriteProductsFragment"
+        android:label="FavoriteProductsFragment"
+        tools:layout="@layout/fragment_favorite_products">
+        <action
+            android:id="@+id/navigate_to_productDetailedFragment"
+            app:destination="@id/productDetailedFragment" />
+    </fragment>
+
 </navigation>
