@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.productviewer.MainApplication
 import com.example.productviewer.databinding.FragmentHomeBinding
 import com.example.productviewer.di.GenericViewModelFactory
@@ -18,7 +19,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     lateinit var factory: GenericViewModelFactory<HomeViewModel>
 
     private val viewModel: HomeViewModel by viewModels { factory }
-    private val adapter: ProductsAdapter = ProductsAdapter()
+    private val adapter: ProductsAdapter = ProductsAdapter(::navigateToProductDetailedFragment)
 
     override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHomeBinding
         get() = FragmentHomeBinding::inflate
@@ -32,6 +33,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         super.onViewCreated(view, savedInstanceState)
         observeState()
         setupViewPager()
+        setupClickListeners()
+    }
+
+    private fun setupClickListeners() {
+        binding.btnDetails.setOnClickListener {
+            val position = binding.viewPager.currentItem
+            navigateToProductDetailedFragment(adapter.currentList[position].id)
+        }
     }
 
     private fun setupViewPager() {
@@ -45,5 +54,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         viewModel.products.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
+    }
+
+    private fun navigateToProductDetailedFragment(id: Long) {
+        findNavController().navigate(HomeFragmentDirections.navigateToProductDetailedFragment(id))
     }
 }

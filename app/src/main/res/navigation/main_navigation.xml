@@ -9,6 +9,21 @@
         android:id="@+id/homeFragment"
         android:name="com.example.productviewer.presentation.home.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/navigate_to_productDetailedFragment"
+            app:destination="@id/productDetailedFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/productDetailedFragment"
+        android:name="com.example.productviewer.presentation.detailed.ProductDetailedFragment"
+        android:label="ProductDetailedFragment"
+        tools:layout="@layout/fragment_product_detailed">
+        <argument
+            android:name="productId"
+            app:argType="long"
+            app:nullable="false" />
+    </fragment>
 
 </navigation>

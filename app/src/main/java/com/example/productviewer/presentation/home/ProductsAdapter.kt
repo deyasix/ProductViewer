@@ -9,13 +9,16 @@ import com.bumptech.glide.Glide
 import com.example.productviewer.databinding.ItemProductBinding
 import com.example.productviewer.domain.entity.Product
 
-class ProductsAdapter :
+class ProductsAdapter(private val onImageClick: (Long) -> Unit) :
     ListAdapter<Product, ProductsAdapter.ProductViewHolder>(ProductDiffUtilCallback) {
 
     inner class ProductViewHolder(private val binding: ItemProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Product) {
             Glide.with(binding.root.context).load(item.imageUrl).into(binding.ivImage)
+            binding.ivImage.setOnClickListener {
+                onImageClick.invoke(item.id)
+            }
         }
     }
 
